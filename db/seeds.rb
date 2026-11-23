@@ -8,22 +8,22 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-tolkien = Author.create({
-  name: "J. R. R. Tolkien",
-  bio: "John Ronald Reuel Tolkien was an english Writter"
-})
+# tolkien = Author.create({
+#   name: "J. R. R. Tolkien",
+#   bio: "John Ronald Reuel Tolkien was an english Writter"
+# })
 
-Book.create([
-  {
-    title: 'The Hobbit',
-    genre: 'Fantasy',
-    pages: 310,
-    author: tolkien
-  },
-  {
-    title: 'The Fellowship of the Ring',
-    genre: 'Fantasy',
-    pages: 423,
-    author: tolkien
-  }
-])
+# Book.create([
+#   {
+#     title: 'The Hobbit',
+#     genre: 'Fantasy',
+#     pages: 310,
+#     author: tolkien
+#   },
+#   {
+#     title: 'The Fellowship of the Ring',
+#     genre: 'Fantasy',
+#     pages: 423,
+#     author: tolkien
+#   }
+# ])
