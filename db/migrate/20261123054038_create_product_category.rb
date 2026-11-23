@@ -1,7 +1,7 @@
 class CreateProductCategory < ActiveRecord::Migration[8.1]
   def change
     create_table :product_categories do |t|
-      t.string name, index: { unique: true }
+      t.string name, null: false
 
       t.timestamps
     end
