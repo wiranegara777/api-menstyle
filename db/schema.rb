@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_23_055953) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_074742) do
   create_table "authors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "bio"
@@ -54,6 +54,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_055953) do
     t.string "CreateProductBrand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
     t.index ["CreateProductBrand"], name: "index_product_brands_on_CreateProductBrand", unique: true
   end
 
@@ -61,6 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_055953) do
     t.string "CreateProductCategory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
     t.index ["CreateProductCategory"], name: "index_product_categories_on_CreateProductCategory", unique: true
   end
 
@@ -68,6 +70,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_055953) do
     t.string "CreateProductColour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
     t.index ["CreateProductColour"], name: "index_product_colours_on_CreateProductColour", unique: true
   end
 
