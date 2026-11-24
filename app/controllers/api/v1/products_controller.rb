@@ -2,29 +2,42 @@ module Api
     module V1
         class ProductsController < ApplicationController
 
-        def index
-            # products = ProductFilterService.execute(params)
+            def index
+                products, meta = Product::FilterService.new(filter_params).execute()
 
-            # return json: products, each_serializer: ProductSerializer
-        end
+                render json: {
+                    data: products,
+                    meta: meta
+                }
+            end
 
-        def show
-            product = Product.find_by(id: params[:id])
+            def show
+                product = Product.find_by(id: params[:id])
 
-            raise CustomError.new(
-                status: :not_found,
-                error: "Not Found",
-                message: { product_id: [ "Product with id #{params[:id]} not found" ] }
-            ) if product.nil?
+                raise CustomError.new(
+                    status: :not_found,
+                    error: "Not Found",
+                    message: { product_id: [ "Product with id #{params[:id]} not found" ] }
+                ) if product.nil?
 
-            render json: product, serializer: ProductSerializer
-        end
+                product = ProductSerializer.new(product, root: false).as_json
+                render json: { data: product }
+            end
 
-        private
+            private
 
-        def author_params
-            params.permit(:name, :bio)
-        end
+            def filter_params
+                params.permit(
+                    :name,
+                    :brand_id,
+                    :colour_id,
+                    :category_id,
+                    :size,
+                    :sort_by,
+                    :min_price,
+                    :max_price
+                )
+            end
         end
     end
 end
