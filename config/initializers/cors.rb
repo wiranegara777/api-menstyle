@@ -14,3 +14,15 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    # Allow Next.js development and production origins
+    origins 'http://localhost:3001', 'https://your-nextjs-domain.com'
+
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: true # Set to true if using cookies/auth headers
+  end
+end
