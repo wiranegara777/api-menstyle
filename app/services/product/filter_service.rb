@@ -17,11 +17,6 @@ class Product
             products = apply_search(products)
             products = apply_sorting(products)
 
-            serialized_products = ActiveModelSerializers::SerializableResource.new(
-                products,
-                each_serializer: ProductSerializer,
-                root: false
-            ).as_json
 
             products = products.page(page).per(per_page)
             meta = {
@@ -31,48 +26,54 @@ class Product
                 per_page:     products.limit_value
             }
 
+            serialized_products = ActiveModelSerializers::SerializableResource.new(
+                products,
+                each_serializer: ProductSerializer,
+                root: false
+            ).as_json
+
             return serialized_products, meta
         end
 
         private
 
         def apply_brand_filter(products)
-            return products if @params[:brand_id].nil?
+            return products unless @params[:brand_ids].present?
             
-            products.where(product_brands: { id: @params[:brand_id] })
+            products.where(product_brands: { id: @params[:brand_ids] })
         end
 
         def apply_colour_filter(products)
-            return products if @params[:colour_id].nil?
+            return products unless @params[:colour_ids].present?
             
-            products.where(product_colours: { id: @params[:colour_id] })
+            products.where(product_colours: { id: @params[:colour_ids] })
         end
 
         def apply_category_filter(products)
-            return products if @params[:category_id].nil?
+            return products unless @params[:category_ids].present?
             
-            products.where(product_categories: { id: @params[:category_id] })
+            products.where(product_categories: { id: @params[:category_ids] })
         end
 
         def apply_size_filter(products)
-            return products if @params[:size].nil?
+            return products unless @params[:sizes].present?
 
-            products.where(size: @params[:size])
+            products.where(size: @params[:sizes])
         end
 
         def apply_price_filter(products)
-            return products unless @params[:min_price] || @params[:max_price]
+            return products unless @params[:min_price].present? && @params[:max_price].present?
 
             min = @params[:min_price].to_f
             max = @params[:max_price].to_f
-            
+
             products.where(price: min..max)
         end
 
         def apply_search(products)
-            return products if @params[:name].nil?
+            return products unless @params[:name].present?
 
-            products.where("name LIKE ?", "%#{@params[:name]}%")
+            products.where("products.name LIKE ?", "%#{@params[:name]}%")
         end
 
         def apply_sorting(products)

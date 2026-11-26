@@ -29,15 +29,15 @@ module Api
             def filter_params
                 params.permit(
                     :name,
-                    :brand_id,
-                    :colour_id,
-                    :category_id,
-                    :size,
                     :sort_by,
                     :min_price,
                     :max_price,
                     :page,
-                    :per_page
+                    :per_page,
+                    brand_ids: [],
+                    colour_ids: [],
+                    category_ids: [],
+                    sizes: [],
                 )
             end
         end
