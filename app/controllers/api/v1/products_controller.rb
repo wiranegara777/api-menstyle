@@ -35,7 +35,9 @@ module Api
                     :size,
                     :sort_by,
                     :min_price,
-                    :max_price
+                    :max_price,
+                    :page,
+                    :per_page
                 )
             end
         end
